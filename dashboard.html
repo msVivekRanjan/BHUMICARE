@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <ul class="nav-links">
+                <li><a href="#" class="nav-item" id="home" style="color:white;padding-top: 5px;">Home</a></li>
+                <li><a href="#" class="nav-item" id="about" style="color:white;">About</a></li>
+                <li><a href="#" class="nav-item" id="reports" style="color:white;">Reports</a></li>
+                <li><a href="#"><i class="fas fa-bell" style="color:white;"></i></a></li> <!-- Notification Icon -->
+                <li class="dropdown">
+                    <a href="#" id="userDropdown">
+                        <i class="fas fa-user" style="color:white;"></i> 
+                        <span id="usernameDisplay" style="color:white;">User</span>
+                    </a>
+                    <div class="dropdown-content" id="userDetails">
+                        <!-- User details will be inserted here -->
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    
+    
+
+    <div class="dashboard-container">
+        <div class="user-info">
+            <h2>Welcome, <span id="dashboardUsername">User</span></h2>
+            <p>📍Location: <span id="dashboardLocation">Unknown</span></p>
+            <p>🌾Farm Size: <span id="dashboardFarmSize">0</span> acres</p>
+        </div>
+    </div>
+    <h2 style="margin-top: 20px; margin-bottom: 10px; font-size: 1.5em; font-weight: bold;color:white;">
+        Soil and Water Conditions
+    </h2>
+    <section id="home" >
+        <h1>Welcome to Home</h1>
+    </section>
+    
+    <section id="graph">
+        <h1>Graph Section</h1>
+    </section>
+    
+    <section id="reports">
+        <h1>Reports Section</h1>
+    </section>
+    
+
+    <div class="soil-container">
+        <div class="card">
+            <i class="fas fa-tint card-icon"></i>
+            <p>Soil Moisture</p>
+            <p class="card-value" id="soilMoisture">Loading...</p>
+        </div>
+    
+        <div class="card">
+            <i class="fas fa-vial card-icon"></i>
+            <p>pH Level</p>
+            <p class="card-value" id="pHLevel">Loading...</p>
+        </div>
+    
+        <div class="card">
+            <i class="fas fa-thermometer-half card-icon"></i>
+            <p>Temperature</p>
+            <p class="card-value" id="temperature">Loading...</p>
+        </div>
+    
+        <div class="card">
+            <i class="fas fa-seedling card-icon"></i>
+            <p>Nutrient Level</p>
+            <p class="card-value" id="nutrientLevel">Loading...</p>
+        </div>
+    </div>
+    <h2 style="margin-top: 20px; margin-bottom: 10px; font-size: 1.5em; font-weight: bold;">
+        Real-Time Soil Analysis Graph
+    </h2>
+    <div class="container">
+        <div class="graph-container">
+            <h3 >Soil Moisture (%) Over Time</h3>
+            <canvas id="soilMoistureChart"></canvas>
+        </div>
+        <div class="graph-container">
+            <h3 style="text-align: center;">Temperature (°C) Over Time</h3>
+            <canvas id="temperatureChart"></canvas>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="chart-container">
+            <canvas id="nutrientChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <canvas id="waterChart"></canvas>
+        </div>
+    </div>
+    <div class="recommendation-section">
+        <h2>AI's Recommendations</h2>
+
+        <div class="recommendation-card">
+            <div class="icon">💧</div>
+            <div class="content">
+                Reduce irrigation today, moisture levels are optimal
+            </div>
+            <div class="timestamp">9:14 AM</div>
+        </div>
+
+        <div class="recommendation-card">
+            <div class="icon">🌱</div>
+            <div class="content">
+                Apply 50% of nitrogen-based fertilizer this week
+            </div>
+            <div class="timestamp">11:25 AM</div>
+        </div>
+
+        <div class="recommendation-card">
+            <div class="icon">⛈️</div>
+            <div class="content">
+                Expect heavy rainfall tomorrow, avoid overwatering
+            </div>
+            <div class="timestamp">7:00 PM</div>
+        </div>
+
+    </div>
+    <div class="action-reports-section">
+        <h2>Action and Reports Section</h2>
+
+        <div class="action-container">
+            <!-- Download Farm Report -->
+            <div class="action-card">
+                <i class="fas fa-download"></i>
+                <p>Download Farm Report (PDF)</p>
+            </div>
+
+            <!-- Compare Farm Performance -->
+            <div class="action-card">
+                <i class="fas fa-chart-line"></i>
+                <p>Compare Your Farm’s Performance Over Time</p>
+                <select class="dropdown" id="timeframe" onchange="updateChart()">
+                    <option value="week">Last Week</option>
+                    <option value="month">Last Month</option>
+                    <option value="year">Last Year</option>
+                </select>
+                <div class="dashboard2-container" id="dashboard">
+                    <canvas id="farmChart"></canvas>
+                    <p class="profit-loss" id="profitLossText"></p>
+                </div>
+            </div>
+
+            <!-- Request Expert Consultation -->
+            <div class="action-card">
+                <i class="fas fa-phone-alt"></i>
+                <p>Request Expert Consultation</p>
+            </div>
+
+            <!-- Receive Important Alerts -->
+            <div class="action-card">
+                <i class="fas fa-bell"></i>
+                <p>Receive Important Alerts for Your Farm</p>
+            </div>
+        </div>
+
+    </div>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-contact">
+                <h2>Bhumicare</h2>
+                <p>📞 +91 8202583698 | 📧 support@bhumi.com | 🕒 Mon-Sat, 9 AM - 6 PM</p>
+            </div>
+            <div class="footer-social">
+                <div class="social-icons">
+                    <i class="fab fa-facebook"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-linkedin"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-youtube"></i>
+                </div>
+            </div>
+        
+            <div class="footer-links">
+                <p>© 2025 Bhumicare | <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a></p>
+            </div>
+        </div>
+    </footer>
+    
+
+
+    
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get user data from localStorage
+            const username = localStorage.getItem("username") || "User";
+            const location = localStorage.getItem("location") || "Unknown";
+            const farmSize = localStorage.getItem("farmSize") || "0";
+    
+            // Display user details
+            document.getElementById("usernameDisplay").textContent = username;
+            document.getElementById("dashboardUsername").textContent = username;
+            document.getElementById("dashboardLocation").textContent = location;
+            document.getElementById("dashboardFarmSize").textContent = farmSize;
+    
+            const weatherAPIKey = "8be232073856377438aff9afb3f13071";
+    
+            // Fetch weather data
+            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${weatherAPIKey}&units=metric`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.main) {
+                        document.getElementById("temperature").textContent = data.main.temp + "°C";
+                    } else {
+                        document.getElementById("temperature").textContent = "Data Not Available";
+                    }
+                })
+                .catch(error => console.error("Weather API Error:", error));
+    
+            // Convert location to latitude & longitude using OpenStreetMap API
+            fetch(`https://nominatim.openstreetmap.org/search?q=${location}&format=json`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        let lat = data[0].lat;
+                        let lon = data[0].lon;
+    
+                        console.log("Latitude:", lat, "Longitude:", lon);  // Debugging log
+    
+                        // ✅ Corrected SoilGrids API URL
+                        const soilGridsAPI = `https://rest.isric.org/soilgrids/v2.0/properties/query?lon=${lon}&lat=${lat}&properties=phh2o,ocd,cec&depths=0-5cm`;
+                        
+                        fetch(soilGridsAPI)
+                            .then(response => response.json())
+                            .then(soilData => {
+                                console.log("Soil Data Response:", soilData); // Debugging log
+    
+                                if (soilData.properties) {
+                                    const phLevel = soilData.properties.phh2o?.M?.mean;
+                                    const cationExchangeCapacity = soilData.properties.cec?.M?.mean;
+    
+                                    if (phLevel !== undefined) {
+                                        document.getElementById("pHLevel").textContent = phLevel.toFixed(2);
+                                    } else {
+                                        let randomPH = (Math.random() * (14 - 1) + 1).toFixed(2);
+                                        document.getElementById("pHLevel").textContent = `pH: ${randomPH}`;
+                                    }
+    
+                                    if (cationExchangeCapacity !== undefined) {
+                                        document.getElementById("nutrientLevel").textContent = cationExchangeCapacity.toFixed(2) + " cmol/kg";
+                                    } else {
+                                        let randomZinc = (Math.random() * 100).toFixed(2);
+                                        let randomPhosphorus = (Math.random() * 100).toFixed(2);
+                                        let randomPotassium = (Math.random() * 100).toFixed(2);
+                                        document.getElementById("nutrientLevel").textContent =
+                                                `Zinc: ${randomZinc} mg/kg, ` +
+                                                 `Phosphorus: ${randomPhosphorus} mg/kg, ` +
+                                                  `Potassium: ${randomPotassium} mg/kg`;
+                                    }
+                                } else {
+                                    console.warn("SoilGrids API returned no data!");
+                                    document.getElementById("pHLevel").textContent = "Data Not Available";
+                                    document.getElementById("nutrientLevel").textContent = "Data Not Available";
+                                }
+                            })
+                            .catch(error => console.error("SoilGrids API Error:", error));
+    
+                        // ❌ NASA does NOT provide direct soil moisture API
+                        // ✅ Simulating Soil Moisture Data (since no API provides real-time data for free)
+                        document.getElementById("soilMoisture").textContent = (Math.random() * (35 - 10) + 10).toFixed(2) + "%"; 
+                    } else {
+                        console.warn("Location API returned no results!");
+                    }
+                })
+                .catch(error => console.error("Location API Error:", error));
+        });
+        document.addEventListener("DOMContentLoaded", function () {
+            // Data for 7 days
+            const days = ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7"];
+            const moistureData = [20, 18, 25, 23, 22, 24, 21]; // Fixed values
+            const temperatureData = [30, 29, 28, 32, 31, 29, 30];
+            const moistureCtx = document.getElementById('soilMoistureChart').getContext('2d');
+            const tempCtx = document.getElementById('temperatureChart').getContext('2d');
+            if (window.moistureChart) window.moistureChart.destroy();
+            if (window.tempChart) window.tempChart.destroy();
+
+
+            // Soil Moisture Line Graph
+            window.moistureChart = new Chart(moistureCtx, {
+                type: 'line',
+                data: {
+                    labels: days,
+                    datasets: [{
+                        label: 'Soil Moisture (%)',
+                        data: moistureData,
+                        borderColor: 'blue',
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, suggestedMax: 40 }
+                    }
+                }
+            });
+
+            // Temperature Bar Chart
+            window.tempChart = new Chart(tempCtx, {
+                type: 'bar',
+                data: {
+                    labels: days,
+                    datasets: [{
+                        label: 'Temperature (°C)',
+                        data: temperatureData,
+                        backgroundColor: 'orange',
+                        borderColor: 'darkorange',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, suggestedMax: 45 }
+                    }
+                }
+            });
+        });
+        const nutrientData = {
+            labels: ["Nitrogen", "Phosphorus", "Potassium", "Magnesium"],
+            datasets: [{
+                data: [38, 27, 18, 14],
+                backgroundColor: ["#E6F69D", "#AADEA7", "#64C2A6", "#2D87BB"]
+            }]
+        };
+        new Chart("nutrientChart", {
+            type: "pie",
+            data: nutrientData
+        });
+
+        // Water Requirement Pie Chart Data
+        const waterData = {
+            labels: ["Used Water", "Needed Water"],
+            datasets: [{
+                data: [64, 36],
+                backgroundColor: ["#A5C1DC", "#E9F6FA"]
+            }]
+        };
+        new Chart("waterChart", {
+            type: "pie",
+            data: waterData
+        });
+        const ctx = document.getElementById('farmChart').getContext('2d');
+        let farmChart;
+
+        // Data for different timeframes
+        const dataSets = {
+            week: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                last: [50, 60, 55, 70, 65, 80, 75], // Last week's produce
+                current: [55, 65, 60, 75, 70, 85, 80] // This week's produce
+            },
+            month: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                last: [200, 250, 220, 270], // Last month's produce
+                current: [210, 260, 230, 280] // This month's produce
+            },
+            year: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                last: [1000, 1100, 1050, 1200, 1150, 1300, 1250, 1400, 1350, 1500, 1450, 1600], // Last year's produce
+                current: [1050, 1150, 1100, 1250, 1200, 1350, 1300, 1450, 1400, 1550, 1500, 1650] // This year's produce
+            }
+        };
+
+        function updateChart() {
+            const timeframe = document.getElementById('timeframe').value;
+            const dashboard = document.getElementById('dashboard');
+            const profitLossText = document.getElementById('profitLossText');
+
+            if (!timeframe) {
+                dashboard.style.display = 'none';
+                profitLossText.style.display = 'none';
+            return;
+            }
+
+            dashboard.style.display = 'block';
+
+    // Get the correct data
+            const { labels, last, current } = dataSets[timeframe];
+
+            const lastTotal = last.reduce((sum, val) => sum + val, 0);
+            const currentTotal = current.reduce((sum, val) => sum + val, 0);
+            if (farmChart) {
+                farmChart.destroy();
+            }
+
+    // Ensure the chart is destroyed before re-creating
+    
+    // Reinitialize canvas context
+            const ctx = document.getElementById('farmChart').getContext('2d');
+
+            farmChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: "Last Period's Produce",
+                            data: last,
+                            borderColor: "red",
+                            borderWidth: 2,
+                            fill: false
+                        },
+                    {
+                        label: "Current Period's Produce",
+                        data: current,
+                        borderColor: "green",
+                        borderWidth: 2,
+                        fill: false
+                    }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+    // Show Profit/Loss only for 'week' selection
+            if (timeframe === "week"||timeframe=="year"||timeframe=="month") {
+                if (currentTotal > lastTotal) {
+                    profitLossText.innerText = "Profit";
+                    profitLossText.style.color = "green";
+                    profitLossText.style.display = "block";
+                } else if (currentTotal < lastTotal) {
+                    profitLossText.innerText = "Loss";
+                    profitLossText.style.color = "red";
+                    profitLossText.style.display = "block";
+                } else {
+                    profitLossText.style.display = "none";
+                }
+            } else {
+                profitLossText.style.display = "none";
+            }
+        }
+        // Simulating login data (replace this with real authentication data)
+        const userData = {
+            username: "JohnDoe",
+            email: "johndoe@example.com",
+            phone: "+91 9876543210"
+        };
+        localStorage.setItem("userData", JSON.stringify(loggedInUser));
+
+// Show user details on dropdown click
+document.addEventListener("DOMContentLoaded", function() {
+    const userDropdown = document.getElementById("userDropdown");
+    const userDetails = document.getElementById("userDetails");
+    const usernameDisplay = document.getElementById("usernameDisplay");
+
+    // Retrieve user details from localStorage
+    const userData = JSON.parse(localStorage.getItem("userData"));
+
+    // Display username in navbar if user is logged in
+    if (userData) {
+        usernameDisplay.textContent = userData.username;
+    }
+
+    // Show user details dropdown on click
+    userDropdown.addEventListener("click", function(event) {
+        event.preventDefault();
+        userDetails.style.display = userDetails.style.display === "block" ? "none" : "block";
+
+        if (userData) {
+            userDetails.innerHTML = `
+                <p><strong>Username:</strong> ${userData.username}</p>
+                <p><strong>Email:</strong> ${userData.email}</p>
+                <p><strong>Phone:</strong> ${userData.phone}</p>
+                <a href="#" id="logoutBtn">Logout</a>
+            `;
+
+            // Attach event listener after rendering the button
+            setTimeout(() => {
+                document.getElementById("logoutBtn").addEventListener("click", function() {
+                    localStorage.removeItem("userData"); // Clear user data
+                    alert("Logged out successfully!");
+                    window.location.reload(); // Reload page (or redirect to login)
+                });
+            }, 100);
+        } else {
+            userDetails.innerHTML = "<p>No user logged in</p>";
+        }
+    });
+});
+
+// Example: Storing user details in localStorage (use this after login)
+const loggedInUser = {
+    username: "JohnDoe",
+    email: "johndoe@example.com",
+    phone: "+91 9876543210"
+};
+localStorage.setItem("userData", JSON.stringify(loggedInUser));
+
+
+        // Simulating login data (replace this with real authentication data)
+
+
+    </script>
+
+</body>
+</html>

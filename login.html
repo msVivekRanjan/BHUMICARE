@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Global Styles */
+        body {
+            background: linear-gradient(to bottom, #eaf8e4, #c1e1c1); /* Soft green gradient */
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Wrapper */
+        .login-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* Login Container */
+        .login-container {
+            width: 375px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        /* Heading */
+        .login-container h2 {
+            margin-bottom: 15px;
+            color: #2e5e2e;
+            font-weight: bold;
+            font-size: 1.8rem;
+        }
+
+        /* Input Fields */
+        .login-container input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #a0c48f;
+            border-radius: 6px;
+            font-size: 1rem; /* ✅ Fixed size */
+            background: #f9fbe7; /* Light yellow-green background */
+            outline: none;
+        }
+
+        /* Button */
+        .login-container button {
+            background-color: #4a7c59; /* Natural green */
+            color: white;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem; /* ✅ Fixed size */
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            padding-top: 20px;
+        }
+
+        .login-container button:hover {
+            background-color: #3a6c49; /* Darker green on hover */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="login-wrapper">
+        <div class="login-container">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="tel" id="phone" placeholder="Phone Number" required>
+                <input type="text" id="farmSize" placeholder="Farm Size (in acres)" required>
+                <input type="text" id="location" placeholder="Location" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
