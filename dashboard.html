@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
+<body style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
 
     <header>
         <nav class="navbar">
@@ -39,7 +39,7 @@
             <p>🌾Farm Size: <span id="dashboardFarmSize">0</span> acres</p>
         </div>
     </div>
-    <h2 style="margin-top: 20px; margin-bottom: 10px; font-size: 1.5em; font-weight: bold;color:white;">
+    <h2 style="margin-top: 20px; margin-bottom: 10px; font-size: 1.5em; font-weight: bold;color:rgb(7, 52, 38);">
         Soil and Water Conditions
     </h2>
     <section id="home" >
@@ -143,7 +143,7 @@
             <!-- Compare Farm Performance -->
             <div class="action-card">
                 <i class="fas fa-chart-line"></i>
-                <p>Compare Your Farm’s Performance Over Time</p>
+                <p>Compare with previous Performance</p>
                 <select class="dropdown" id="timeframe" onchange="updateChart()">
                     <option value="week">Last Week</option>
                     <option value="month">Last Month</option>
@@ -164,7 +164,7 @@
             <!-- Receive Important Alerts -->
             <div class="action-card">
                 <i class="fas fa-bell"></i>
-                <p>Receive Important Alerts for Your Farm</p>
+                <p>Receive Important Alerts</p>
             </div>
         </div>
 
@@ -364,96 +364,6 @@
         const ctx = document.getElementById('farmChart').getContext('2d');
         let farmChart;
 
-        // Data for different timeframes
-        const dataSets = {
-            week: {
-                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                last: [50, 60, 55, 70, 65, 80, 75], // Last week's produce
-                current: [55, 65, 60, 75, 70, 85, 80] // This week's produce
-            },
-            month: {
-                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-                last: [200, 250, 220, 270], // Last month's produce
-                current: [210, 260, 230, 280] // This month's produce
-            },
-            year: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                last: [1000, 1100, 1050, 1200, 1150, 1300, 1250, 1400, 1350, 1500, 1450, 1600], // Last year's produce
-                current: [1050, 1150, 1100, 1250, 1200, 1350, 1300, 1450, 1400, 1550, 1500, 1650] // This year's produce
-            }
-        };
-
-        function updateChart() {
-            const timeframe = document.getElementById('timeframe').value;
-            const dashboard = document.getElementById('dashboard');
-            const profitLossText = document.getElementById('profitLossText');
-
-            if (!timeframe) {
-                dashboard.style.display = 'none';
-                profitLossText.style.display = 'none';
-            return;
-            }
-
-            dashboard.style.display = 'block';
-
-    // Get the correct data
-            const { labels, last, current } = dataSets[timeframe];
-
-            const lastTotal = last.reduce((sum, val) => sum + val, 0);
-            const currentTotal = current.reduce((sum, val) => sum + val, 0);
-            if (farmChart) {
-                farmChart.destroy();
-            }
-
-    // Ensure the chart is destroyed before re-creating
-    
-    // Reinitialize canvas context
-            const ctx = document.getElementById('farmChart').getContext('2d');
-
-            farmChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: "Last Period's Produce",
-                            data: last,
-                            borderColor: "red",
-                            borderWidth: 2,
-                            fill: false
-                        },
-                    {
-                        label: "Current Period's Produce",
-                        data: current,
-                        borderColor: "green",
-                        borderWidth: 2,
-                        fill: false
-                    }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
-
-    // Show Profit/Loss only for 'week' selection
-            if (timeframe === "week"||timeframe=="year"||timeframe=="month") {
-                if (currentTotal > lastTotal) {
-                    profitLossText.innerText = "Profit";
-                    profitLossText.style.color = "green";
-                    profitLossText.style.display = "block";
-                } else if (currentTotal < lastTotal) {
-                    profitLossText.innerText = "Loss";
-                    profitLossText.style.color = "red";
-                    profitLossText.style.display = "block";
-                } else {
-                    profitLossText.style.display = "none";
-                }
-            } else {
-                profitLossText.style.display = "none";
-            }
-        }
         // Simulating login data (replace this with real authentication data)
         const userData = {
             username: "JohnDoe",
